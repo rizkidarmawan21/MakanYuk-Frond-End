@@ -191,6 +191,18 @@ header .container img {
 }
 
 
+.btn-orange {
+    background-color: #FFC700;
+    padding:10px 50px;
+    color: white;
+}
+.btn-orange-login {
+    background-color: #FFC700;
+    width: 100%;
+    color: white;
+}
+
+
 
 @keyframes spin {
     100% {
