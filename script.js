@@ -5,33 +5,34 @@ $(window).on("load", function () {
 })
 
 
-let dataUser;
+const url = "http://foodmarket.test:8080/"
 
-const url = "http://foodmarket.test:8080/api/login/"
+let dataUser = {} 
+const STORAGE_USER = "STORAGE_USER"
 
+// ================== LOGIN API =====================
 
-var email = document.querySelector('#exampleInputEmail1').value
-var pasw = document.querySelector('#exampleInputPassword1').value
+var form_login = document.getElementById('form-login')
 
-// function login() {
-
-
-    // }
-
-
-    axios.post(url, {
-        email: 'rizki@gmail.com',
-        password: '12345678'
+form_login.addEventListener('submit' ,function(event){
+    event.preventDefault()
+    let email = document.getElementById('email-form').value
+    let pasw = document.getElementById('password-form').value
+    
+    axios.post(url+'api/login/', {
+        email: email,
+        password: pasw
 
     }).then((data) => {
-        const token = data.data
-        // dataUser = token
-        // document.querySelector('#exampleInputEmail1').value = token
-        // Token(token)
-        console.log(token)
-    }).catch((err) => {
-        console.log(err)
+        console.log(data.data.data)
+        dataUser['token'] = data.data.data
+        // console.log(dataUser)
+        sessionStorage.setItem(STORAGE_USER,JSON.stringify(dataUser))
+        alert('Login berhasil')
+        window.location.replace("http://192.168.43.115:5500/index.html");
+    }).catch((error) => {
+        console.log('error = ',error.response.data)
+        alert(error.response.data.message)
+        window.location.replace("http://192.168.43.115:5500/login.html");
     })
-
-// console.log(dataUser)
-
+})
